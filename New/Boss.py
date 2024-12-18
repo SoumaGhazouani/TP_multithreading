@@ -7,14 +7,23 @@ class Boss(QueueClient):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+
     def add_tasks(self, num_tasks=10):
+        print("Boss is adding tasks.")
+        task = Task(identifier=0)
+        print(f"Adding task {task.identifier} of size {task.size}.")
+        self.task_queue.put(task)
+        self.task_queue.put(task)
+        print("All tasks have been added.")
+
+"""  def add_tasks(self, num_tasks=10):
         print("Boss is adding tasks.")
         for i in range(num_tasks):
             task = Task(identifier=i)
             print(f"Adding task {task.identifier} of size {task.size}.")
             self.task_queue.put(task)
-        print("All tasks have been added.")
-
+        print("All tasks have been added.")  """
+    
 
 
 if __name__ == "__main__":

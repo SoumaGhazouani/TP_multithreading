@@ -19,6 +19,7 @@ class Task:
         start = time.perf_counter()
         self.x = np.linalg.solve(self.a, self.b)
         self.time = time.perf_counter() - start
+        print (self.time)
 
     def to_json(self) -> str:
         """Convert the Task object to a JSON string."""
