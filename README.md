@@ -1,7 +1,7 @@
 # TP Multithreading
 
 ## Objectif
-Ce projet implémente un système de traitement de tâches en utilisant le multithreading avec Python. Il repose sur une architecture où des "minions" exécutent des tâches en parallèle sous la supervision d'un "boss".
+Ce projet implémente un système de traitement de tâches en utilisant le multithreading avec Python et cpp. Il repose sur une architecture où des "Minions" exécutent des tâches en parallèle sous la supervision d'un "Boss".
 
 Les objectifs spécifiques de ce projet sont :
 
@@ -50,15 +50,15 @@ uv sync
 ### Lancer les programmes
 
 ```sh
-uv run manager.py
+uv run QueueManager.py
 uv run proxy.py
-uv run boss.py
+uv run Boss.py
 ```
 
 Attendez que le boss envoie les tâches, puis exécutez :
 
 ```sh
-uv run minion.py
+uv run Minion.py
 ```
 
 ### Compilation du code C++
@@ -83,5 +83,64 @@ Exécuter le fichier compilé :
 
 ## Résultats
 
+Pour évaluer les performances, nous avons résolu des systèmes linéaires de la forme **AX = b**, où **X** est de taille aléatoire. Le boss envoie deux tâches de même taille aux deux minions (Python et C++), puis nous mesurons le temps d'exécution.
 
+### Temps d'exécution pour différentes tailles de tâches
+
+#### Taille `1122`
+
+- **Minion Python** : `0.134559 sec`
+- **Minion C++** : `0.43322 sec`
+
+#### Taille `2895`
+- **Minion Python** : `3.4403 sec`
+- **Minion C++** : `11.415 sec`
+
+
+
+### Analyse des performances
+
+Contrairement aux attentes, Python est plus rapide que C++ dans ces tests. Cela est probablement dû à l’optimisation poussée de **NumPy**, qui exploite des bibliothèques sous-jacentes très performantes pour la résolution de systèmes linéaires.
+
+Nous avons tenté d'améliorer les performances du Minion C++ en compilant avec l'option **Release** :
+
+```sh
+cmake -B build -S . -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+```
+
+Cependant, même avec cette optimisation, Python reste plus rapide que C++ dans ce contexte: 
+
+#### Taille `1853`
+
+- **Minion Python** : `0.1249259 sec`
+- **Minion C++ avec l'option Release** : `1.08543 sec`
+
+#### Taille `2395`
+
+- **Minion Python** : `5.90942 sec`
+- **Minion C++ avec l'option Release** : `6.76766 sec`
+
+
+Ces résultats montrent que **C++ n'est pas toujours plus rapide que Python**, cela dépend de plusieurs facteurs :
+
+- L'optimisation des bibliothèques utilisées (comme NumPy en Python qui exploite des optimisations bas niveau).
+- La gestion de la mémoire et la parallélisation des calculs.
+- L'implémentation spécifique des algorithmes dans chaque langage.
+
+### Améliorations possibles
+
+Pour améliorer les performances du Minion C++, nous pourrions explorer d'autres approches :
+
+- **Utilisation d'OpenMP** : OpenMP permet d'exécuter les calculs en parallèle en répartissant les opérations sur plusieurs cœurs du processeur. Cela pourrait être appliqué pour traiter chaque ligne ou case de la matrice simultanément.
+
+- **Optimisation du code C++** : L'utilisation de bibliothèques comme Eigen ou Armadillo permettrait d'exploiter des algorithmes optimisés et une meilleure gestion de la mémoire, offrant ainsi un gain de performance notable.
+
+- **Exploitation du GPU** : CUDA et OpenCL permettent d'utiliser la carte graphique pour accélérer les calculs matriciels en parallèle, ce qui peut être bien plus rapide qu'une exécution sur CPU pour des matrices de grande taille.
+
+## Conclusion
+
+Ce projet illustre l'utilisation du multithreading en Python et C++, permettant d'évaluer l'impact de différentes implémentations sur les performances. L'utilisation de NumPy en Python s'est avérée être une solution plus performante que notre implémentation en C++. Ces résultats soulignent l'importance du choix des bibliothèques et des techniques d'optimisation pour améliorer l'efficacité des calculs. 
+
+---
 
