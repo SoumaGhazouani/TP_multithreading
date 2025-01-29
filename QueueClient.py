@@ -11,8 +11,7 @@ class QueueClient:
     def get_results(self):
 	    while not self.result_queue.empty():
 	        result = self.result_queue.get()
-	        #print(f"Result for task {result.identifier}: Computation time = {result.time:.2f} seconds")
-
+	        
 
 
 

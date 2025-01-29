@@ -120,16 +120,13 @@ int main() {
 
         // Parse JSON response
         nlohmann::json json_data = nlohmann::json::parse(r.text);
-        //std::cout << "JSON parsed: " << json_data.dump(4) << std::endl;
-        std::cout << "test1"<< std::endl;
-
+        
         // Créer un objet Task à partir de json_data
         Task task(json_data); // Utilisation du constructeur avec json
-        std::cout << "test2"<< std::endl;
+        std::cout << "Processing task " <<task.identifier << " of size " << task.size << std::endl;
         task.work();           // Résoudre Ax = b
 
-        //std::cout << "Task computed. Result: " << task.to_json().dump(4) << std::endl;
-
+        
         // POST Request Example
         cpr::Response postResponse = cpr::Post(
             cpr::Url{"http://localhost:8000"},
