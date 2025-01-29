@@ -1,24 +1,24 @@
-from multiprocessing.managers import BaseManager
 from multiprocessing import Queue
+from multiprocessing.managers import BaseManager
+import time
 
-test_queue = Queue()
+task_queue = Queue()
 result_queue = Queue()
 
 class QueueManager(BaseManager):
     pass
 
-
-
-
-class QueueClient:
-    pass
-
+QueueManager.register('get_task_queue', callable=lambda: task_queue)
+QueueManager.register('get_result_queue', callable=lambda: result_queue)
 
 if __name__ == "__main__":
-    QueueManager.register('get_test_queue', callable=lambda:test_queue)
-    QueueManager.register('get_result_queue', callable=lambda:result_queue)
+    manager = QueueManager(address=('127.0.0.1', 50000), authkey=b'abc')
+    manager.start()
+    print("QueueManager started.")
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print("Shutting down manager.")
+        manager.shutdown()
 
-    m = QueueManager(address=('127.0.0.1', 50000), authkey=b'abracadabra')
-    #m.start()
-    s = m.get_server()
-    s.serve_forever()
