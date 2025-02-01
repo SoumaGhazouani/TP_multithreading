@@ -1,6 +1,6 @@
 # Minion doit récupérer les taches de QueueClient et les réaliser
-from task import Task
 from QueueClient import QueueClient
+
 
 class Minion(QueueClient):
     def __init__(self, *args, **kwargs):
@@ -25,4 +25,3 @@ class Minion(QueueClient):
 if __name__ == "__main__":
     minion = Minion()
     minion.work()
-

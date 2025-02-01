@@ -109,7 +109,7 @@ cmake -B build -S . -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ```
 
-Cependant, même avec cette optimisation, Python reste plus rapide que C++ dans ce contexte: 
+Cependant, même avec cette optimisation, Python reste plus rapide que C++ dans ce contexte:
 
 #### Taille `1853`
 
@@ -140,7 +140,6 @@ Pour améliorer les performances du Minion C++, nous pourrions explorer d'autres
 
 ## Conclusion
 
-Ce projet illustre l'utilisation du multithreading en Python et C++, permettant d'évaluer l'impact de différentes implémentations sur les performances. L'utilisation de NumPy en Python s'est avérée être une solution plus performante que notre implémentation en C++. Ces résultats soulignent l'importance du choix des bibliothèques et des techniques d'optimisation pour améliorer l'efficacité des calculs. 
+Ce projet illustre l'utilisation du multithreading en Python et C++, permettant d'évaluer l'impact de différentes implémentations sur les performances. L'utilisation de NumPy en Python s'est avérée être une solution plus performante que notre implémentation en C++. Ces résultats soulignent l'importance du choix des bibliothèques et des techniques d'optimisation pour améliorer l'efficacité des calculs.
 
 ---
-

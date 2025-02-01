@@ -5,14 +5,16 @@ import time
 task_queue = Queue()
 result_queue = Queue()
 
+
 class QueueManager(BaseManager):
     pass
 
-QueueManager.register('get_task_queue', callable=lambda: task_queue)
-QueueManager.register('get_result_queue', callable=lambda: result_queue)
+
+QueueManager.register("get_task_queue", callable=lambda: task_queue)
+QueueManager.register("get_result_queue", callable=lambda: result_queue)
 
 if __name__ == "__main__":
-    manager = QueueManager(address=('127.0.0.1', 50000), authkey=b'abc')
+    manager = QueueManager(address=("127.0.0.1", 50000), authkey=b"abc")
     manager.start()
     print("QueueManager started.")
     try:
@@ -21,4 +23,3 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("Shutting down manager.")
         manager.shutdown()
-

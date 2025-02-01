@@ -17,7 +17,7 @@ class TestTask(unittest.TestCase):
             atol=0,
             err_msg="Erreur : la solution calculée n'est pas correcte",
         )
-    
+
     def test_task_serialization(self):
         # Instanciation d'une première tâche
         a = Task(identifier=1)
@@ -30,7 +30,9 @@ class TestTask(unittest.TestCase):
         b = Task.from_json(txt)
 
         # Vérification que les deux tâches sont identiques
-        self.assertEqual(a, b, "The deserialized task is not equal to the original task.")
+        self.assertEqual(
+            a, b, "The deserialized task is not equal to the original task."
+        )
 
 
 if __name__ == "__main__":
